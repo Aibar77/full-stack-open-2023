@@ -1,8 +1,8 @@
-```mermaid
 sequenceDiagram
 participant browser
 participant server
 
+```mermaid
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     the server responds with HTTP status 302.This is a URL redirect,with which the server asks the browser to do  a new HTTP GET request to the address defined in the header location - adress /notes
     server-->>browser: redirect to /notes
@@ -27,7 +27,7 @@ participant server
     activate server
     server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
     deactivate server
+```
 
 
     Note right of browser: The browser executes the callback function that renders the notes
-```
