@@ -92,3 +92,13 @@ button:focus-visible {
   border: 1px solid red;
   padding: 15px;
 }
+.addNote {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.addNote input {
+  padding: 6px 10px;
+  font-family: inherit;
+}

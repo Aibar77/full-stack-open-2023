@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-const Header = ({ name }) => {
-  return <h1>{name}</h1>;
-};
+
 const Part = ({ part }) => {
   return (
     <p>
@@ -9,50 +7,95 @@ const Part = ({ part }) => {
     </p>
   );
 };
-const Content = ({ parts }) => {
+const Content = ({ parts, name }) => {
+  const total = parts.reduce((acc, obj) => acc + obj.exercises, 0);
   return (
     <>
-      <Part part={parts[0]} />
-      <Part part={parts[1]} />
-      <Part part={parts[2]} />
+      <h2
+        style={{
+          color: "blueviolet",
+        }}
+      >
+        {name}
+      </h2>
+      {parts.map((part) => (
+        <Part key={part.name} part={part} />
+      ))}
+      <Total total={total} />
     </>
   );
 };
 const Total = ({ total }) => {
-  return <p>Number of exercises - {total}</p>;
+  return (
+    <p>
+      <strong
+        style={{
+          color: "orangered",
+        }}
+      >
+        Number of exercises - {total}
+      </strong>
+    </p>
+  );
+};
+
+const Course = ({ course }) => {
+  return (
+    <div className="App">
+      <h1>Web development curriculum</h1>
+      {course.map((a) => (
+        <Content parts={a.parts} key={a.id} name={a.name} />
+      ))}
+    </div>
+  );
 };
 
 function CourseInfo() {
-  const course = {
-    name: "Half Stack application development",
-    parts: [
-      {
-        name: "Fundamentals of React",
-        exercises: 10,
-      },
-      {
-        name: "Using props to pass data",
-        exercises: 7,
-      },
-      {
-        name: "State of a component",
-        exercises: 14,
-      },
-    ],
-  };
-  return (
-    <div className="App">
-      <Header name={course.name} />
-      <Content parts={course.parts} />
-      <Total
-        total={
-          course.parts[0].exercises +
-          course.parts[1].exercises +
-          course.parts[2].exercises
-        }
-      />
-    </div>
-  );
+  const course = [
+    {
+      name: "Half Stack application development",
+      id: 1,
+      parts: [
+        {
+          name: "Fundamentals of React",
+          exercises: 10,
+          id: 1,
+        },
+        {
+          name: "Using props to pass data",
+          exercises: 7,
+          id: 2,
+        },
+        {
+          name: "State of a component",
+          exercises: 14,
+          id: 3,
+        },
+        {
+          name: "Redux",
+          exercises: 11,
+          id: 4,
+        },
+      ],
+    },
+    {
+      name: "Node.js",
+      id: 2,
+      parts: [
+        {
+          name: "Routing",
+          exercises: 3,
+          id: 1,
+        },
+        {
+          name: "MiddleWares",
+          exercises: 7,
+          id: 2,
+        },
+      ],
+    },
+  ];
+  return <Course course={course} />;
 }
 
 export default CourseInfo;
