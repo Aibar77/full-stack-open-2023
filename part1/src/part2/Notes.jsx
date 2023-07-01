@@ -32,7 +32,7 @@ const Notes = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
-  const [errorMsg, setErrorMsg] = useState("some error...");
+  const [errorMsg, setErrorMsg] = useState(null);
   useEffect(() => {
     noteService.getAll().then((initialNotes) => {
       setNotes(initialNotes);
