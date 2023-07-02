@@ -1,21 +1,27 @@
 const express = require("express");
 const cors = require("cors");
-const dotenv = require("dotenv");
-dotenv.config();
-const Note = require("./models/note");
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static("dist"));
-
+const notes = [
+  {
+    content: "Html is easy",
+    important: true,
+    id: 123,
+  },
+  {
+    content: "CSS is easy",
+    important: false,
+    id: 234,
+  },
+];
 app.get("/", (req, res) => {
   res.send("<h1>Hello Aibar</h1>");
 });
 
 app.get("/api/notes", (req, res) => {
-  Note.find({}).then((notes) => {
-    res.json(notes);
-  });
+  res.json(notes);
 });
 
 app.get("/api/notes/:id", (req, res) => {
