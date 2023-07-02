@@ -97,7 +97,7 @@ const Notes = () => {
           value={newNote}
           onChange={(e) => setNewNote(e.target.value)}
         />
-        <button type="submit">save</button>
+        <button type="submit">save note</button>
       </form>
       <Footer />
     </div>
