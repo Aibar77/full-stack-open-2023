@@ -46,10 +46,18 @@ const Notes = () => {
       content: newNote,
       important: Math.random() > 0.5,
     };
-    noteService.create(noteObj).then((returnedNote) => {
-      setNotes(notes.concat(returnedNote));
-      setNewNote("");
-    });
+    noteService
+      .create(noteObj)
+      .then((returnedNote) => {
+        setNotes(notes.concat(returnedNote));
+        setNewNote("");
+      })
+      .catch((error) => {
+        setErrorMsg(error.response.data.error);
+        setTimeout(() => {
+          setErrorMsg(null);
+        }, 5000);
+      });
   };
 
   const toggleImportanceOf = (note) => {
@@ -83,7 +91,7 @@ const Notes = () => {
   return (
     <div className="App">
       <h1>Notes</h1>
-      <Notification message={errorMsg} />
+      <Notification message={errorMsg} type="error" />
       <div>
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? "important" : "all"}

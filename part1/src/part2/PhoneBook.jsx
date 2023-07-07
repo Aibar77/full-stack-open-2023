@@ -38,9 +38,9 @@ const PhoneBook = () => {
       ) {
         phoneService
           .updateNumber(persons[index].id, newPerson)
-          .then((res) => {
+          .then((person) => {
             setPersons(
-              persons.map((p) => (p.id !== persons[index].id ? p : res.data))
+              persons.map((p) => (p.id !== persons[index].id ? p : person))
             );
             setMessage(`${newPerson.name} number is changed`);
             setTimeout(() => {
@@ -57,13 +57,21 @@ const PhoneBook = () => {
           });
       }
     } else {
-      phoneService.addNumber(newPerson).then((person) => {
-        setPersons([...persons, person]);
-        setMessage(`Added ${person.name}`);
-        setTimeout(() => {
-          setMessage(null);
-        }, 4000);
-      });
+      phoneService
+        .addNumber(newPerson)
+        .then((person) => {
+          setPersons([...persons, person]);
+          setMessage(`Added ${person.name}`);
+          setTimeout(() => {
+            setMessage(null);
+          }, 4000);
+        })
+        .catch((error) => {
+          setMessage(error.response.data.error);
+          setTimeout(() => {
+            setMessage(null);
+          }, 4000);
+        });
     }
     setNewPerson({
       name: "",
